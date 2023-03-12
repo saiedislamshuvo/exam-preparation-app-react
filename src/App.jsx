@@ -1,6 +1,16 @@
 import { useState } from 'react'
-import { Routes, Route, Outlet, Link } from "react-router-dom";
+import { Routes, Route, Outlet, Link, Redirect } from "react-router-dom";
 import { useStoreActions, useStoreState } from 'easy-peasy';
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const isAuthenticated = useStoreState((state) => state.auth.token);
+  return <Route
+    {...rest}
+    render={(props) =>
+      isAuthenticated ? <Component {...props} /> : <Redirect to="/" />
+    }
+  />
+}
 
 const App = () => {
   return <div >
@@ -10,6 +20,7 @@ const App = () => {
         <Route path="mocktests" element={<Mocktests />} />
         <Route path="login" element={<Login />} />
         <Route path="account" element={<Account />} />
+        <Route path="questions" element={<Questions />} />
         <Route path="*" element={<Home />} />
       </Route>
     </Routes>
@@ -17,6 +28,8 @@ const App = () => {
 }
 
 const Layout = () => {
+  const token = useStoreState((state) => state.auth.token);
+
   return <>
     <div id="navbar" className="sticky">
       <div className="container">
@@ -47,19 +60,19 @@ const Layout = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login" >
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/account" >
-                    Account
+                  <Link className="nav-link" to="/questions" >
+                    Questions
                   </Link>
                 </li>
               </ul>
-              <button type="button" className="btn btn-primary">
-                Login
-              </button>
+              {
+                token ? <Link to="/account" className="btn btn-primary">
+                  Account
+                </Link> : <Link to="/login" className="btn btn-primary">
+                  Login
+                </Link>
+              }
+
             </div>
           </div>
         </nav>
@@ -102,8 +115,7 @@ const Mocktests = () => {
                 <i className="fa fa-star"></i>
                 5.0
               </div>
-              <a
-              >
+              <a>
                 <img
                   src="/public/images/placeholder.jpg"
                   className="card-img-top course-card-img"
@@ -113,32 +125,21 @@ const Mocktests = () => {
             </div>
             <div className="card-body py-2 px-3">
               <button
-                v-if="course.accredation_name || false"
                 type="button"
                 className="btn btn-sm tag-yellow mb-1"
               >
-                course titrle
+                course title
               </button>
-              <button v-else type="button" className="btn mt-3"></button>
-              <a
-
-              >
+              <button type="button" className="btn mt-3"></button>
+              <a>
                 <h5 className="card-title my-1">
                   course name
                 </h5>
               </a>
             </div>
             <div className="card-footer py-1">
-              <div className="d-flex justify-content-between align-items-center">
-                <div>
-                  <p className="mb-0 text-price">
-
-                    200৳
-                  </p>
-                </div>
-                <a
-                  className="btn btn-text"
-                >
+              <div className="d-flex justify-content-end">
+                <a className="btn btn-text" >
                   See Details
                 </a>
               </div>
@@ -200,13 +201,13 @@ const Login = () => {
 
 const Account = () => {
   return <div className='container'>
-    <div class="account-layout">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 sidebar mb-4">
+    <div className="account-layout">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-3 sidebar mb-4">
             <AccountSidebar />
           </div>
-          <div class="main col-lg-9 ms-sm-auto px-md-4">
+          <div className="main col-lg-9 ms-sm-auto px-md-4">
 
           </div>
         </div>
@@ -216,19 +217,19 @@ const Account = () => {
 }
 
 const AccountSidebar = () => {
-  return <nav class="account-navigation d-none d-md-block">
-    <div class="position-sticky pt-3">
-      <ul class="nav flex-column">
-        <li class="nav-item">
+  return <nav className="account-navigation d-none d-md-block">
+    <div className="position-sticky pt-3">
+      <ul className="nav flex-column">
+        <li className="nav-item">
           <Link
             to="/"
-            class="nav-link"
+            className="nav-link"
           >
             Home
           </Link>
           <Link
             to="/mocktests"
-            class="nav-link"
+            className="nav-link"
           >
             Mocktest
           </Link>
@@ -238,66 +239,142 @@ const AccountSidebar = () => {
   </nav >
 }
 
-const Todo = ({ todo }) => {
-  const { remove, toggleCompleted } = useStoreActions((actions) => ({
-    remove: actions.todos.remove,
-    toggleCompleted: actions.todos.toggleCompleted,
-  }));
+const Questions = () => {
+  return <div className=''>
+    <div className="mocktest-exam app-layout">
+      {/* <app-breadcrumb
+      :title="this.$route.query.topic || 'Questions Builder'"
+      subtitle="Build Questions"
+      className="px-4 px-md-0"
+    /> */}
+      <div className="container my-md-5">
+        <form>
+          <div className="card mocktest-card">
+            <div className="card-header py-2 py-md-4 px-4 sticky-sm">
+              <div
+                className="d-flex justify-content-between align-items-center"
+              >
+                <h5 className="text-body1 mb-0">Questions</h5>
+                <div className="d-flex align-items-center">
+                  <div className="me-4">
+                    <div v-if="isLoading" className="spinner">
+                      <div className="double-bounce1"></div>
+                      <div className="double-bounce2"></div>
+                    </div>
+                  </div>
+                  <button v-if="editMode" type="submit" className="btn btn-primary me-3">
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary me-3"
+                  >
+                    Add Questions
+                  </button>
+                  <h5 className="text-body1 mb-0 me-3">edit:</h5>
+                  {/* <toggle-button @change="handleEditMode" /> */}
+                </div>
+              </div>
+            </div>
+            <div className="card-body h-min-40 mb-5 mb-md-0">
+              <div >
+                <div className="mx-2 mx-md-3 my-3 my-md-5">
+                  <div>
+                    <div
+                      v-if="isEdittingQuestionText[question.id] || false"
+                      className="input-group"
+                    >
+                      <input
+                        type="text"
+                        className="form-control"
+                      />
+                    </div>
+                    <div >
+                      <h6 className="text-body2">
+                        1. questions
+                        <button
+                          v-if="editMode"
+                          className="btn btn-sm"
 
-  return (
-    <div>
-      <li>
-        <input
-          type="checkbox"
-          checked={todo.completed}
-          onChange={() => toggleCompleted(todo.id)}
-        />
-        <span
-          style={{
-            textDecoration: todo.completed ? 'line-through' : 'none',
-          }}
-        >
-          {todo.text}
-        </span>
-        <button onClick={() => remove(todo.id)}>x</button>
-      </li>
-    </div>
-  );
-}
-
-const TodoList = () => {
-  const todos = useStoreState((state) => state.todos.items);
-  console.log(todos);
-  return (
-    <div className='container'>
-      <AddTodo />
-      <ul>
-        {todos.map((todo) => (
-          <Todo key={todo.id} todo={todo} />
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-const AddTodo = () => {
-  const [text, setText] = useState('');
-  const addTodo = useStoreActions((actions) => actions.todos.add);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (text.trim() !== '') {
-      addTodo(text);
-      setText('');
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input value={text} onChange={(e) => setText(e.target.value)} />
-      <button type="submit">Add</button>
-    </form>
-  );
+                        >
+                          <i className="fas fa-pen"></i>
+                        </button>
+                      </h6>
+                    </div>
+                    <div className="row mt-3 mt-md-5">
+                      <div
+                        className="col-md-6"
+                      >
+                        <div className="my-3">
+                          <input
+                            type="text"
+                            className="form-control mb-0"
+                          />
+                        </div>
+                        <div
+                          className="card mocktest-option-item my-3"
+                        >
+                          <div className="card-body">
+                            <div className="d-flex align-items-center justify-content-between">
+                              <div className="d-flex">
+                                <button
+                                  className="btn btn-sm me-2"
+                                  title="option-edit-btn"
+                                >
+                                  <i className="fas fa-pen" title="option-edit-btn"></i>
+                                </button>
+                                <h6 className="text-body2 me-4 mb-0">
+                                  optionsName[index]
+                                </h6>
+                                <p className="option-text mb-0">
+                                  option
+                                </p>
+                              </div>
+                              <div className="form-check">
+                                <input
+                                  className="form-check-input"
+                                  type="radio"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="my-3"
+                    >
+                      <input
+                        type="text"
+                        className="form-control mb-0"
+                      />
+                    </div>
+                    <div >
+                      <p className="text-p">
+                        explanations
+                        <button
+                          v-if="editMode"
+                          className="btn btn-sm"
+                        >
+                          <i className="fas fa-pen"></i>
+                        </button>
+                      </p>
+                    </div>
+                  </div >
+                </div >
+              </div >
+              <div >
+                <div className="mx-5 my-5">
+                  <h6 className="text-body2">No Questions Found!</h6>
+                </div>
+              </div>
+            </div >
+            <div className="card-footer py-2 d-none d-md-block"></div>
+          </div >
+        </form >
+      </div >
+    </div >
+  </div >
 }
 
 export default App
