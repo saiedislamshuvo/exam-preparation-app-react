@@ -18,8 +18,27 @@ body {
     z-index: 999999 !important;
 }
 
+#navbar {
+    box-shadow: rgba(17, 12, 46, 0.03) 0px 48px 100px 0px;
+}
+
 #navbar .active {
     font-weight: 600;
+}
+
+.btn-primary {
+    background-color: #CE1212;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #CE1212;
+    border: none;
+}
+
+.btn-primary:focus {
+    background-color: #CE1212 !important;
+    border: none;
 }
 
 a {
@@ -344,6 +363,21 @@ a {
     font-size: 18px;
     color: #111111;
     margin-right: 30px;
+}
+
+.account-navigation .nav-item .nav-link {
+    background-color: #f6f7fc;
+    margin: 5px 0;
+    border-radius: 10px;
+}
+
+.account-navigation .nav-link {
+    background-color: #f6f7fc;
+}
+
+.account-navigation .active {
+    background-color: #CE1212;
+    color: #fff;
 }
 
 .btn-search {
@@ -1062,10 +1096,6 @@ footer hr {
 .course-details-bottom .card {
     margin: 0;
     background-color: #fff;
-}
-
-.account-layout .main {
-    background-color: #f6f7fc;
 }
 
 .account-layout .nav-link {
