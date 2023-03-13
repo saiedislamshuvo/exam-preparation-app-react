@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Api = axios.create({
-    baseURL: 'http://192.168.68.100:8000/api',
+    baseURL: 'https://admin.jobbank.mv/exam-prep/public/api',
     headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
         "Content-Type": "application/json",

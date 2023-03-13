@@ -1347,9 +1347,18 @@ footer hr {
     border: 3px solid #FEB456 !important;
 }
 
+.mocktest-option-item-selected-green {
+    border: 3px solid #78fe56 !important;
+}
+
 .mocktest-exam .form-check-input:checked {
     background-color: #FEB456;
     border-color: #FEB456;
+}
+
+.mocktest-exam .form-check-input:checked .green-checked {
+    background-color: #78fe56 !important;
+    border-color: #78fe56 !important;
 }
 
 .scaleAnimation {

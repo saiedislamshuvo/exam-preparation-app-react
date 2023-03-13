@@ -1,7 +1,21 @@
+import Breadcrumb from '../../../components/shared/Breadcrumb.jsx';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+
 const Questions = () => {
+    const { mocktestid } = useParams();
+
+    const fetchQuestions = () => {
+        console.log(mocktestid);
+    };
+
+    useEffect(() => {
+        fetchQuestions();
+    }, []);
+
     return <div className=''>
         <div className="mocktest-exam app-layout">
-        {/* app */}
+            <Breadcrumb title={"Questions"} subtitle={"make question paper."} />
             <div className="container my-md-5">
                 <form>
                     <div className="card mocktest-card">
@@ -9,7 +23,7 @@ const Questions = () => {
                             <div
                                 className="d-flex justify-content-between align-items-center"
                             >
-                                <h5 className="text-body1 mb-0">Questions</h5>
+                                <h5 className="text-body1 mb-0"> Questions</h5>
                                 <div className="d-flex align-items-center">
                                     <div className="me-4">
                                         <div v-if="isLoading" className="spinner">
@@ -124,12 +138,11 @@ const Questions = () => {
                                 </div>
                             </div>
                         </div >
-                        <div className="card-footer py-2 d-none d-md-block"></div>
                     </div >
                 </form >
             </div >
         </div >
-    </div >
-}
+    </div >;
+};
 
 export default Questions;
