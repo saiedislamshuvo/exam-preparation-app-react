@@ -1,15 +1,15 @@
 import { useState } from 'react'
-import { Routes, Route, Outlet, Link, Redirect } from "react-router-dom";
+import { Routes, Route, Outlet, Link, Navigate } from "react-router-dom";
 import { useStoreActions, useStoreState } from 'easy-peasy';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const RequireAuth = ({ children }) => {
   const isAuthenticated = useStoreState((state) => state.auth.token);
-  return <Route
-    {...rest}
-    render={(props) =>
-      isAuthenticated ? <Component {...props} /> : <Redirect to="/" />
-    }
-  />
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
 }
 
 const App = () => {
@@ -19,7 +19,11 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="mocktests" element={<Mocktests />} />
         <Route path="login" element={<Login />} />
-        <Route path="account" element={<Account />} />
+        <Route path="account" element={
+          <RequireAuth >
+            <Account />
+          </RequireAuth>
+        } />
         <Route path="questions" element={<Questions />} />
         <Route path="*" element={<Home />} />
       </Route>
