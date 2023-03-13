@@ -23,7 +23,7 @@ const Account = () => {
 
     const handleMocktestQuestions = (mocktest) => {
         setMocktestid(mocktest.id);
-        navigate('/questions');
+        navigate(`/questions/${mocktest.id}`);
     }
 
     return <AccountLayout>
