@@ -7,6 +7,8 @@ import Login from './views/auth/login/index';
 import Account from './views/account/dashboard/index';
 import Questions from './views/account/questions/index';
 import CreateQuestions from './views/account/questions/create.jsx';
+import ExamView from './views/account/exam';
+import Results from './views/account/results';
 
 const RequireAuth = ({ children }) => {
   const isAuthenticated = useStoreState((state) => state.auth.token);
@@ -25,13 +27,11 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="mocktests" element={<Mocktests />} />
         <Route path="login" element={<Login />} />
-        <Route path="account" element={
-          <RequireAuth >
-            <Account />
-          </RequireAuth>
-        } />
-        <Route path="questions/:mocktestid" element={<Questions />} />
-        <Route path="questions/:mocktestid/create" element={<CreateQuestions />} />
+        <Route path="account" element={<RequireAuth ><Account /></RequireAuth>} />
+        <Route path="questions/:mocktestid" element={<RequireAuth><Questions /></RequireAuth>} />
+        <Route path="questions/:mocktestid/create" element={<RequireAuth><CreateQuestions /></RequireAuth>} />
+        <Route path="exam/:mocktestid" element={<RequireAuth><ExamView /></RequireAuth>} />
+        <Route path="results" element={<RequireAuth><Results /></RequireAuth>} />
         <Route path="*" element={<Home />} />
       </Route>
     </Routes>

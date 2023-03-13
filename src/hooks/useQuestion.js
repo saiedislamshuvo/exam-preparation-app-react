@@ -65,9 +65,6 @@ const useQuestion = () => {
         }
 
         setQuestions(questionList);
-
-        console.log(questions);
-
     };
 
     const isRightOption = ({ index, answer, correct }) => {
