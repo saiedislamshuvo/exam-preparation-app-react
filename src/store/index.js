@@ -1,8 +1,9 @@
-import { createStore, action, persist } from 'easy-peasy';
+import { createStore } from 'easy-peasy';
 import auth from './auth/index';
+import mocktest from './mocktest/index';
 
 const store = createStore({
-    auth,
+    auth, mocktest
 });
 
 export default store;
