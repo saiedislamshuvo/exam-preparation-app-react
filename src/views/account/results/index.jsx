@@ -13,18 +13,18 @@ const Results = () => {
     }, []);
 
     return <AccountLayout>
-        <div class="card mocktest-card my-3">
-            <div class="card-header py-2 py-md-3 px-2 px-md-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="text-body-heading3 mb-0">Results</h5>
+        <div className="card mocktest-card my-3">
+            <div className="card-header py-2 py-md-3 px-2 px-md-3">
+                <div className="d-flex justify-content-between align-items-center">
+                    <h5 className="text-body-heading3 mb-0">Results</h5>
                 </div>
             </div>
-            <div class="card-body h-min-40 mb-5 mb-md-0 p-0">
+            <div className="card-body h-min-40 mb-5 mb-md-0 p-0">
                 {results.length > 0 ? <div style={{ width: '100%', overflowX: 'scroll' }}>
-                    <table class="table text-center">
+                    <table className="table text-center">
                         <thead>
                             <tr>
-                                <th scope="col" class="text-start">Mocktest</th>
+                                <th scope="col" className="text-start">Mocktest</th>
                                 <th scope="col">Total Questions</th>
                                 <th scope="col">Total Answered</th>
                                 <th scope="col">Correct Answerd</th>
@@ -34,7 +34,7 @@ const Results = () => {
                         <tbody>
                             {
                                 results.map(result => (
-                                    <tr>
+                                    <tr key={result.id}>
                                         <td>{result.id}</td>
                                         <td>{result.total_questions || 0}</td>
                                         <td>{result.total_answered || 0}</td>
@@ -45,8 +45,8 @@ const Results = () => {
                             }
                         </tbody>
                     </table>
-                </div> : <div class="mx-5 my-5">
-                    <p class="text-body1">No results yet!</p>
+                </div> : <div className="mx-5 my-5">
+                    <p className="text-body1">No results yet!</p>
                 </div>}
             </div>
         </div >

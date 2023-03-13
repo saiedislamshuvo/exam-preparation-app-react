@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const login = useStoreActions((actions) => actions.auth.login);
@@ -12,9 +14,11 @@ const Login = () => {
         login({ email, password });
     };
 
-    if (token) {
-        return <div>You are logged in!</div>;
-    }
+    useEffect(() => {
+        if (token) {
+            navigate('/account');
+        }
+    }, [token]);
 
     return <div className='container'>
         <div className='app-layout'>
@@ -46,7 +50,7 @@ const Login = () => {
                 </div>
             </div>
         </div >
-    </div>
-}
+    </div>;
+};
 
 export default Login;

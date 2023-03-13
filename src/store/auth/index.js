@@ -50,12 +50,12 @@ const authModel = {
         }
     }),
 
-    removeToken: action(() => {
-        authService.removeToken();
+    removeToken: action((state) => {
+        state.token = null;
     }),
 
-    removeUser: action(() => {
-        authService.removeUser();
+    removeUser: action((state) => {
+        state.user = null;
     }),
 };
 

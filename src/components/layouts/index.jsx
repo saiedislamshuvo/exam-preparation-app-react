@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { useStoreState } from 'easy-peasy';
 
 const Layout = () => {
@@ -24,19 +24,14 @@ const Layout = () => {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <Link className="nav-link active" to="/" >
+                                    <NavLink className="nav-link" to="/" activeclassname="active" >
                                         Home
-                                    </Link>
+                                    </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/mocktests" >
+                                    <NavLink className="nav-link" to="/mocktests" activeclassname="active" >
                                         Mocktests
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/questions" >
-                                        Questions
-                                    </Link>
+                                    </NavLink>
                                 </li>
                             </ul>
                             {
@@ -53,7 +48,7 @@ const Layout = () => {
             </div>
         </div >
         <Outlet />
-    </>
-}
+    </>;
+};
 
 export default Layout;
