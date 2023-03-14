@@ -1,6 +1,9 @@
 import Breadcrumb from '../../../components/shared/Breadcrumb.jsx';
 import QuestionItem from '../../../components/questions/QuestionItem.jsx';
 import useQuestion from '../../../hooks/useQuestion.js';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 const CreateQuestions = () => {
 
@@ -15,7 +18,9 @@ const CreateQuestions = () => {
     } = useQuestion();
 
     return <div className="app-layout">
-        <Breadcrumb title={"Questions"} subtitle={"make question paper."} />
+        <Breadcrumb title={"Questions"} subtitle={"make question paper."}  >
+            <ShowHint />
+        </Breadcrumb>
         <div className='container'>
             <div className="mocktest-exam">
                 <form onSubmit={handleQuestionTextSubmit}>
@@ -87,5 +92,38 @@ const CreateQuestions = () => {
         </div >
     </div>;
 };
+
+const ShowHint = () => {
+    const [show, setShow] = useState(false);
+
+    return <div>
+        <button className='d-flex btn btn-text' onClick={() => setShow(!show)}>
+            <div>
+                {show ? <FontAwesomeIcon icon={faMinus} /> : <FontAwesomeIcon icon={faPlus} />}
+            </div>
+            <p className="mb-0 card-title">
+                Hint
+            </p>
+        </button>
+        {show && <div>
+            What is the purpose of version control software? <br />
+            a. To track changes to code over time<br />
+            b. To optimize database performance<br />
+            c. To automate software testing<br />
+            d. To manage software licenses<br />
+            answer: a<br />
+            explanation: To track changes to code over time. Version control software like Git allows developers to track changes made to their code over time, collaborate with other developers, and easily revert changes if necessary.<br />
+
+            What is the difference between a compiler and an interpreter?<br />
+            a. A compiler translates code into machine language, while an interpreter executes code directly<br />
+            b. A compiler executes code directly, while an interpreter translates code into machine language<br />
+            c. A compiler is used for scripting languages, while an interpreter is used for compiled languages<br />
+            d. A compiler and an interpreter are the same thing<br />
+            answer: a<br />
+            explanation: A compiler translates code into machine language, while an interpreter executes code directly. A compiler takes the entire source code and translates it into machine language all at once, whereas an interpreter executes the code line-by-line.<br />
+        </div>}
+
+    </div >
+}
 
 export default CreateQuestions;

@@ -1,4 +1,4 @@
-const Breadcrumb = ({ title, subtitle }) => (<div className="breadcrumbs bg-app px-2 px-md-0">
+const Breadcrumb = ({ title, subtitle, children }) => (<div className="breadcrumbs bg-app px-2 px-md-0">
     <div className="container">
         <div className="row py-4 py-md-5">
             <div className="col-12">
@@ -6,6 +6,9 @@ const Breadcrumb = ({ title, subtitle }) => (<div className="breadcrumbs bg-app 
                     {title || ""}
                 </h1>
                 <p className="text-p mb-0" style={{ fontSize: '20px' }}>{subtitle || ""}</p>
+            </div>
+            <div className="col-12 mt-2">
+                {children}
             </div>
         </div>
     </div>

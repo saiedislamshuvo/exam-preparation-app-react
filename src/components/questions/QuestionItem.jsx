@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import useQuestion from '../../hooks/useQuestion';
 
 
 const QuestionItem = ({ question, index, isRightOption, mocktestid, questions, handleQuestionDelete }) => {
