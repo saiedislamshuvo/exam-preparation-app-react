@@ -13,7 +13,7 @@ import './assets/css/style.css';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <StoreProvider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <App />
       </BrowserRouter>
     </StoreProvider>,
