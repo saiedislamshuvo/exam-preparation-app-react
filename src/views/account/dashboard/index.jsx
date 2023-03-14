@@ -1,6 +1,7 @@
 import AccountLayout from "../components/AccountLayout";
 import MocktestCardAction from '../../../components/mocktests/MocktestCardAction';
 import MocktestForm from "../../../components/mocktests/MocktestForm";
+import NoItem from "../../../components/shared/NoItem";
 import useMocktest from "../../../hooks/useMocktest";
 import { useNavigate } from "react-router-dom";
 
@@ -37,7 +38,7 @@ const Account = () => {
             <h1>My Mocktests</h1>
         </div>
         <div className="row">
-            {mocktests.map(mocktest => (
+            {mocktests.length > 0 ? mocktests.map(mocktest => (
                 <div key={mocktest.id} className="col-md-4 my-2">
                     <MocktestCardAction
                         mocktest={mocktest}
@@ -45,7 +46,7 @@ const Account = () => {
                         handleMocktestQuestions={handleMocktestQuestions}
                     />
                 </div>
-            ))}
+            )) : <NoItem />}
         </div>
     </AccountLayout >
 }
