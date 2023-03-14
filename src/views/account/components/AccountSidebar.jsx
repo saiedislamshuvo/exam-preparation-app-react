@@ -25,6 +25,15 @@ const AccountSidebar = () => {
                         Results
                     </NavLink >
                 </li>
+                <li className="nav-item">
+                    <NavLink
+                        to="/profile"
+                        className="nav-link"
+                        activeclassname="active"
+                    >
+                        Profile
+                    </NavLink >
+                </li>
                 <li onClick={handleLogout} className="nav-item">
                     <a href='#' className='nav-link'>
                         Logout

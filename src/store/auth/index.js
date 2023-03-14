@@ -30,7 +30,7 @@ const authModel = {
     register: thunk(async (actions, userData) => {
         try {
             const response = await authService.register(userData);
-            if (response.status === 200) {
+            if (response.status === 201) {
                 actions.setToken(response.data.token);
                 actions.setUser(response.data.user);
             }
@@ -56,6 +56,15 @@ const authModel = {
 
     removeUser: action((state) => {
         state.user = null;
+    }),
+
+    changePassword: thunk(async (actions, data) => {
+        try {
+            const response = await authService.changePassword(data);
+            return response;
+        } catch (error) {
+            return error.response;
+        }
     }),
 };
 

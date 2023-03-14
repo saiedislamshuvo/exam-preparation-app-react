@@ -7,8 +7,8 @@ export default {
     async login(credentials) {
         const response = await Api.post('/login', credentials);
         if (response.status === 200) {
-            const { access_token, user } = response.data;
-            this.setToken(access_token);
+            const { token, user } = response.data;
+            this.setToken(token);
             this.setUser(user);
         }
         return response;
@@ -16,9 +16,9 @@ export default {
 
     async register(userData) {
         const response = await Api.post('/register', userData);
-        if (response.status === 200) {
-            const { access_token, user } = response.data;
-            this.setToken(access_token);
+        if (response.status === 201) {
+            const { token, user } = response.data;
+            this.setToken(token);
             this.setUser(user);
         }
         return response;

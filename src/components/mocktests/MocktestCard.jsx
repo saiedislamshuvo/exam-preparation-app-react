@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const MocktestCard = ({ mocktest }) => (<div className="card course-card">
     <div className="card-header">
         <div className="course-card-rating">
@@ -28,9 +30,9 @@ const MocktestCard = ({ mocktest }) => (<div className="card course-card">
     </div>
     <div className="card-footer py-1">
         <div className="d-flex justify-content-end">
-            <a className="btn btn-text" >
+            <Link to={`/exam/${mocktest.id}`} className="btn btn-text" >
                 Participate
-            </a>
+            </Link>
         </div>
     </div>
 </div >);

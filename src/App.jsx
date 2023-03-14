@@ -9,6 +9,8 @@ import Questions from './views/account/questions/index';
 import CreateQuestions from './views/account/questions/create.jsx';
 import ExamView from './views/account/exam';
 import Results from './views/account/results';
+import Profile from "./views/account/profile";
+import Register from "./views/auth/register";
 
 const RequireAuth = ({ children }) => {
   const isAuthenticated = useStoreState((state) => state.auth.token);
@@ -27,6 +29,8 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="mocktests" element={<Mocktests />} />
         <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="profile" element={<Profile />} />
         <Route path="account" element={<RequireAuth ><Account /></RequireAuth>} />
         <Route path="questions/:mocktestid" element={<RequireAuth><Questions /></RequireAuth>} />
         <Route path="questions/:mocktestid/create" element={<RequireAuth><CreateQuestions /></RequireAuth>} />
