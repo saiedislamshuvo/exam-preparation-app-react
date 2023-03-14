@@ -59,13 +59,13 @@ const authModel = {
 
     logout: thunk(async (actions) => {
         try {
-            await authService.logout();
             actions.removeToken();
             actions.removeUser();
             notify({
                 message: 'Logged Out',
                 status: true,
             });
+            await authService.logout();
         } catch (error) {
             notify({
                 message: 'Something Went Wrong',
