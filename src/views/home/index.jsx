@@ -12,7 +12,7 @@ const Home = () => {
                         <p className="text-p-hero px-5 px-lg-0">
                             Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle.
                         </p>
-                        <Link to="/mocktests" className="btn btn-primary">Mocktests</Link>
+                        <Link to="/mocktests" className="btn btn-primary mb-4">Mocktests</Link>
                     </div>
                     <div className="col-md-6 vh-50-max">
                         <img className="img-fluid br-20" src="/images/img-1.jpg" alt="exam" />
