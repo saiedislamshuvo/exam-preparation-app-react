@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 import { useParams, useNavigate } from 'react-router-dom';
+import { notify } from '../services/helper/utils';
 
 const useQuestion = () => {
     const { mocktestid } = useParams();
 
     const navigate = useNavigate();
 
-    const [storeQuestions, getMocktestQuestions] = useStoreActions((actions) => [
+    const [storeQuestions, getMocktestQuestions, deleteQuestion] = useStoreActions((actions) => [
         actions.question.storeQuestions,
-        actions.question.getQuestions
+        actions.question.getQuestions,
+        actions.question.deleteQuestion,
     ]);
     const mocktestQuestions = useStoreState((state) => state.question.questions);
 
@@ -84,6 +86,23 @@ const useQuestion = () => {
         });
     };
 
+    const handleQuestionDelete = (e, qid, mocktestid, index, questionData) => {
+        if (confirm('Are you sure?')) {
+            if (mocktestid) {
+                deleteQuestion({ qid, mocktestid })
+            } else {
+                if ((index >= 0) && (questionData[index].question || false)) {
+                    const temp = questionData.filter(qu => qu.question != questionData[index].question);
+                    setQuestions(temp);
+                    notify({
+                        message: 'Questions Deleted Successfully',
+                        status: true,
+                    });
+                }
+            }
+        }
+    }
+
     return {
         mocktestid,
         questionText,
@@ -95,6 +114,7 @@ const useQuestion = () => {
         isRightOption,
         mocktestQuestions,
         getMocktestQuestions,
+        handleQuestionDelete,
     };
 };
 

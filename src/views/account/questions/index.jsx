@@ -11,6 +11,7 @@ const Questions = () => {
         isRightOption,
         mocktestQuestions,
         getMocktestQuestions,
+        handleQuestionDelete,
     } = useQuestion();
 
     const fetchQuestions = () => {
@@ -47,7 +48,14 @@ const Questions = () => {
                                 {
                                     mocktestQuestions.map((question, index) => (
                                         <div key={index}>
-                                            <QuestionItem question={question} index={index} isRightOption={isRightOption} />
+                                            <QuestionItem
+                                                question={question}
+                                                index={index}
+                                                isRightOption={isRightOption}
+                                                mocktestid={mocktestid}
+                                                questions={mocktestQuestions}
+                                                handleQuestionDelete={handleQuestionDelete}
+                                            />
                                         </div>
                                     ))
                                 }

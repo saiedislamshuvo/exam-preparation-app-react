@@ -24,7 +24,24 @@ const questionModel = {
                 message: 'Questions Created Successfully',
                 status: true,
             });
-            actions.getQuestions();
+            return response;
+        } catch (error) {
+            notify({
+                message: 'Something Went Wrong',
+                status: false,
+            });
+            return error.response;
+        }
+    }),
+
+    deleteQuestion: thunk(async (actions, { qid, mocktestid }) => {
+        try {
+            const response = await questionService.delete(qid);
+            notify({
+                message: 'Questions Deleted Successfully',
+                status: true,
+            });
+            actions.getQuestions(mocktestid);
             return response;
         } catch (error) {
             notify({

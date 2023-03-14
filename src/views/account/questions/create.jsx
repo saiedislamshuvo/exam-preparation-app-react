@@ -11,6 +11,7 @@ const CreateQuestions = () => {
         questions,
         handleSubmit,
         isRightOption,
+        handleQuestionDelete,
     } = useQuestion();
 
     return <div className="app-layout">
@@ -57,7 +58,13 @@ const CreateQuestions = () => {
                                 {
                                     questions.map((question, index) => (
                                         <div key={index}>
-                                            <QuestionItem question={question} index={index} isRightOption={isRightOption} />
+                                            <QuestionItem
+                                                question={question}
+                                                index={index}
+                                                isRightOption={isRightOption}
+                                                questions={questions}
+                                                handleQuestionDelete={handleQuestionDelete}
+                                            />
                                         </div>
                                     ))
                                 }
