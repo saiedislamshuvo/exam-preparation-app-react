@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 import { useNavigate, Link } from 'react-router-dom';
+import { fieldRequired } from '../../../services/helper/utils';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -11,6 +12,11 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const status = fieldRequired([
+            { name: 'Email', value: email },
+            { name: 'Password', value: password }
+        ]);
+        if (status) return;
         login({ email, password });
     };
 

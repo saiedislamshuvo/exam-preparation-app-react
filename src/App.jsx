@@ -4,13 +4,14 @@ import Layout from "./components/layouts";
 import Home from './views/home/index';
 import Mocktests from './views/mocktests/index';
 import Login from './views/auth/login/index';
+import Register from './views/auth/register/index';
 import Account from './views/account/dashboard/index';
 import Questions from './views/account/questions/index';
 import CreateQuestions from './views/account/questions/create.jsx';
 import ExamView from './views/account/exam';
 import Results from './views/account/results';
 import Profile from "./views/account/profile";
-import Register from "./views/auth/register";
+import { Toaster } from 'react-hot-toast';
 
 const RequireAuth = ({ children }) => {
   const isAuthenticated = useStoreState((state) => state.auth.token);
@@ -24,6 +25,7 @@ const RequireAuth = ({ children }) => {
 
 const App = () => {
   return <div >
+    <div><Toaster containerStyle={{ zIndex: '999999999999999' }} /></div>
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />

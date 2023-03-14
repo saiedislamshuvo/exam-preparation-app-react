@@ -1,5 +1,6 @@
 import { action, thunk } from 'easy-peasy';
 import authService from './../../services/apis/auth';
+import { notify } from '../../services/helper/utils';
 
 const authModel = {
     token: authService.getToken(),
@@ -20,9 +21,17 @@ const authModel = {
             if (response.status === 200) {
                 actions.setToken(response.data.token);
                 actions.setUser(response.data.user);
+                notify({
+                    message: 'Login Successful',
+                    status: true,
+                });
             }
             return response;
         } catch (error) {
+            notify({
+                message: 'Login failed',
+                status: false,
+            });
             return error.response;
         }
     }),
@@ -33,9 +42,17 @@ const authModel = {
             if (response.status === 201) {
                 actions.setToken(response.data.token);
                 actions.setUser(response.data.user);
+                notify({
+                    message: 'Registration Successful',
+                    status: true,
+                });
             }
             return response;
         } catch (error) {
+            notify({
+                message: 'Registration failed',
+                status: false,
+            });
             return error.response;
         }
     }),
@@ -45,7 +62,15 @@ const authModel = {
             await authService.logout();
             actions.removeToken();
             actions.removeUser();
+            notify({
+                message: 'Logged Out',
+                status: true,
+            });
         } catch (error) {
+            notify({
+                message: 'Something Went Wrong',
+                status: false,
+            });
             console.log(error);
         }
     }),
@@ -61,8 +86,16 @@ const authModel = {
     changePassword: thunk(async (actions, data) => {
         try {
             const response = await authService.changePassword(data);
+            notify({
+                message: 'Password Change Successfully',
+                status: true,
+            });
             return response;
         } catch (error) {
+            notify({
+                message: 'Something Went Wrong',
+                status: false,
+            });
             return error.response;
         }
     }),
