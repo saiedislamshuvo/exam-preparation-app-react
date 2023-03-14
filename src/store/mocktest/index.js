@@ -1,5 +1,6 @@
 import { action, thunk } from 'easy-peasy';
 import mocktestService from './../../services/apis/mocktest';
+import { notify } from '../../services/helper/utils';
 
 const mocktestModel = {
     mocktests: [],
@@ -33,9 +34,17 @@ const mocktestModel = {
     storeMocktest: thunk(async (actions, data) => {
         try {
             const response = await mocktestService.store(data);
+            notify({
+                message: 'Mocktest Created Successfully',
+                status: true,
+            });
             actions.getMyMocktests();
             return response;
         } catch (error) {
+            notify({
+                message: 'Something Went Wrong',
+                status: false,
+            });
             return error.response;
         }
     }),
@@ -43,9 +52,17 @@ const mocktestModel = {
     updateMocktest: thunk(async (actions, data) => {
         try {
             const response = await mocktestService.update(data);
+            notify({
+                message: 'Mocktest Updated Successfully',
+                status: true,
+            });
             actions.getMyMocktests();
             return response;
         } catch (error) {
+            notify({
+                message: 'Something Went Wrong',
+                status: false,
+            });
             return error.response;
         }
     }),
@@ -53,9 +70,17 @@ const mocktestModel = {
     deleteMocktest: thunk(async (actions, data) => {
         try {
             const response = await mocktestService.delete(data);
+            notify({
+                message: 'Mocktest Deleted Successfully',
+                status: true,
+            });
             actions.getMyMocktests();
             return response;
         } catch (error) {
+            notify({
+                message: 'Something Went Wrong',
+                status: false,
+            });
             return error.response;
         }
     }),
