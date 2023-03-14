@@ -9,7 +9,7 @@ const Layout = () => {
             <div className="container">
                 <nav className="navbar navbar-expand-lg bg-body-tertiary py-3">
                     <div className="container-fluid">
-                        <a className="navbar-brand fw-bold" href="#">Exam Prepration</a>
+                        <Link to="/" className="navbar-brand fw-bold">Exam Prepration</Link>
                         <button
                             className="navbar-toggler"
                             type="button"
