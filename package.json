@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "http://saiedislamshuvo.github.io/exam-preparation-app-react",
+  "homepage": "https://saiedislamshuvo.github.io/exam-preparation-app-react",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
