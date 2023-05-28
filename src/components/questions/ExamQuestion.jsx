@@ -18,12 +18,6 @@ const ExamQuestion = ({ question, index, selectedOptionIndex, onOptionSelect }) 
                                 <div className="card-body">
                                     <div className="d-flex align-items-center justify-content-between">
                                         <div className="d-flex">
-                                            <button
-                                                className="btn btn-sm me-2"
-                                                title="option-edit-btn"
-                                            >
-                                                <i className="fas fa-pen" title="option-edit-btn"></i>
-                                            </button>
                                             <h6 className="text-body2 me-4 mb-0">
                                                 {String.fromCharCode(65 + opindex)}
                                             </h6>
